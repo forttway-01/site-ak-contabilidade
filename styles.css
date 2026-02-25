@@ -39,19 +39,15 @@ header{
   display:flex; gap:12px; align-items:center;
 }
 
-/* ✅ LOGO: tamanho ideal (melhor no celular) */
+/* ✅ Logo (desktop/mobile) */
 .brand img{
   height:48px;
   width:auto;
   object-fit:contain;
 }
-
-/* Tablet/Mobile: logo mais presente */
 @media (max-width:900px){
   .brand img{ height:44px; }
 }
-
-/* Celulares bem pequenos */
 @media (max-width:420px){
   .brand img{ height:40px; }
 }
@@ -70,7 +66,7 @@ header{
   padding:12px 16px; border-radius:14px;
   font-weight:800; letter-spacing:.2px;
   border:1px solid transparent;
-  transition: transform .08s ease, background .2s ease, border .2s ease;
+  transition: transform .15s ease, background .2s ease, border .2s ease, box-shadow .2s ease;
   user-select:none;
 }
 .btn:active{ transform: translateY(1px); }
@@ -95,14 +91,37 @@ header{
 .mobile-menu{ display:none; }
 
 /* =========================
-   HERO (INDEX)
+   HERO (INDEX) — com imagem + parallax
+   ✅ precisa do arquivo: office-bg.jpg
 ========================= */
 .hero{
-  padding:70px 0 48px;
+  position: relative;
+  padding:110px 0 78px;
   background:
+    url("office-bg.jpg") center/cover no-repeat,
     radial-gradient(800px 260px at 20% 0%, rgba(212,175,55,.18), transparent 60%),
     radial-gradient(700px 220px at 90% 10%, rgba(212,175,55,.12), transparent 55%);
+  background-attachment: fixed, scroll, scroll;
+  overflow: hidden;
 }
+
+/* camada premium escura pra legibilidade */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.72),
+    rgba(0,0,0,.85)
+  );
+}
+
+.hero .container{
+  position: relative;
+  z-index: 2;
+}
+
 .hero-grid{
   display:grid; grid-template-columns: 1.15fr .85fr; gap:34px; align-items:center;
 }
@@ -179,7 +198,7 @@ h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
 }
 
 /* =========================
-   STEPS (INDEX / SOBRE)
+   STEPS
 ========================= */
 .steps{
   display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
@@ -215,20 +234,6 @@ h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
 }
 
 /* =========================
-   FOOTER
-========================= */
-footer{
-  padding:28px 0;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size:14px;
-}
-.footer-grid{
-  display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
-}
-.footer-links{ display:flex; gap:14px; flex-wrap:wrap; }
-
-/* =========================
    PAGE TITLE / FORMS
 ========================= */
 .page-title{
@@ -254,9 +259,10 @@ input:focus, textarea:focus{
 }
 
 /* =========================
-   RESPONSIVE NAV
+   RESPONSIVE NAV / LAYOUT
 ========================= */
 @media (max-width: 900px){
+  .hero{ background-attachment: scroll, scroll, scroll; padding:90px 0 60px; }
   .hero-grid{ grid-template-columns: 1fr; }
   .grid-3{ grid-template-columns: 1fr; }
   .grid-2{ grid-template-columns: 1fr; }
@@ -279,7 +285,6 @@ input:focus, textarea:focus{
 
 /* =====================================================
    PREMIUM ADD-ON (SOBRE COM FOTO + VALORES + ASSINATURA)
-   Mantém o INDEX funcionando
 ===================================================== */
 
 /* animação suave */
@@ -299,7 +304,6 @@ input:focus, textarea:focus{
   .reveal{ opacity:1; transform:none; animation:none; }
 }
 
-/* layout bloco do sobre */
 .aboutHero{
   display:grid;
   grid-template-columns: 420px 1fr;
@@ -310,7 +314,7 @@ input:focus, textarea:focus{
   .aboutHero{ grid-template-columns: 1fr; }
 }
 
-/* moldura premium da foto (ideal para sua foto escura) */
+/* moldura premium da foto */
 .photoFrame{
   position:relative;
   border-radius:22px;
@@ -411,4 +415,106 @@ input:focus, textarea:focus{
   margin:0;
   color: var(--muted);
   font-size: 14px;
+}
+
+/* =========================
+   FOOTER PRO (Forttway + Social)
+========================= */
+.footerPro{
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  background: rgba(255,255,255,.02);
+}
+
+.footerProGrid{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 16px;
+  flex-wrap:wrap;
+}
+
+.footerMuted{ color: var(--muted); }
+
+.footerCenter{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.footerCompany{
+  color: var(--text);
+  letter-spacing:.2px;
+}
+
+.footerSocial{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.socialBtn{
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  transition: transform .15s ease, border .2s ease, background .2s ease;
+}
+
+.socialBtn:hover{
+  transform: translateY(-1px) scale(1.06);
+  border-color: rgba(212,175,55,.40);
+  background: rgba(212,175,55,.12);
+}
+
+/* =========================
+   HOVER PREMIUM: retângulos/quadrados aumentam
+========================= */
+.card,
+.valueCard,
+.step,
+.hero-card,
+.trust span,
+.pill,
+.cta,
+.socialBtn{
+  transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.card:hover,
+.valueCard:hover,
+.step:hover,
+.hero-card:hover,
+.trust span:hover,
+.pill:hover{
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 35px rgba(0,0,0,.25);
+  border-color: rgba(212,175,55,.35);
+}
+
+.cta:hover{
+  transform: translateY(-1px) scale(1.01);
+  border-color: rgba(212,175,55,.25);
+}
+
+/* mobile: remove hover */
+@media (max-width: 900px){
+  .card:hover,
+  .valueCard:hover,
+  .step:hover,
+  .hero-card:hover,
+  .trust span:hover,
+  .pill:hover,
+  .cta:hover{
+    transform: none;
+    box-shadow: none;
+  }
 }
