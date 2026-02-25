@@ -39,14 +39,21 @@ header{
   display:flex; gap:12px; align-items:center;
 }
 
-/* ✅ LOGO: tamanho ideal */
+/* ✅ LOGO: tamanho ideal (melhor no celular) */
 .brand img{
   height:48px;
   width:auto;
   object-fit:contain;
 }
+
+/* Tablet/Mobile: logo mais presente */
 @media (max-width:900px){
-  .brand img{ height:38px; }
+  .brand img{ height:44px; }
+}
+
+/* Celulares bem pequenos */
+@media (max-width:420px){
+  .brand img{ height:40px; }
 }
 
 .brand .name{ font-weight:700; letter-spacing:.2px; }
