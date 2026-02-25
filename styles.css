@@ -22,6 +22,9 @@ a:hover{ opacity:.92; }
 
 .container{ width: min(var(--max), calc(100% - 40px)); margin:0 auto; }
 
+/* =========================
+   HEADER / NAV
+========================= */
 header{
   position: sticky; top:0; z-index:50;
   background: rgba(43,45,49,.85);
@@ -35,7 +38,17 @@ header{
 .brand{
   display:flex; gap:12px; align-items:center;
 }
-.brand img{ width:44px; height:44px; object-fit:contain; }
+
+/* ✅ LOGO: tamanho ideal */
+.brand img{
+  height:48px;
+  width:auto;
+  object-fit:contain;
+}
+@media (max-width:900px){
+  .brand img{ height:38px; }
+}
+
 .brand .name{ font-weight:700; letter-spacing:.2px; }
 .brand .tag{ color:var(--muted); font-size:13px; margin-top:2px; }
 
@@ -74,6 +87,9 @@ header{
 .mobile-toggle{ display:none; }
 .mobile-menu{ display:none; }
 
+/* =========================
+   HERO (INDEX)
+========================= */
 .hero{
   padding:70px 0 48px;
   background:
@@ -114,6 +130,9 @@ h1{ margin:10px 0 12px; font-size: clamp(30px, 4vw, 48px); line-height:1.08; }
 .hero-card ul{ margin:0; padding-left:18px; color:var(--muted); }
 .hero-card li{ margin:8px 0; }
 
+/* =========================
+   SECTIONS / GRIDS
+========================= */
 .section{
   padding:58px 0;
   border-top: 1px solid var(--line);
@@ -127,6 +146,7 @@ h1{ margin:10px 0 12px; font-size: clamp(30px, 4vw, 48px); line-height:1.08; }
 
 h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
 .muted{ color: var(--muted); }
+
 .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
 .grid-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
 
@@ -151,6 +171,9 @@ h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
   font-weight:800; font-size:12px;
 }
 
+/* =========================
+   STEPS (INDEX / SOBRE)
+========================= */
 .steps{
   display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
 }
@@ -171,6 +194,9 @@ h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
 .step h4{ margin:10px 0 6px; }
 .step p{ margin:0; color: var(--muted); font-size:14px; }
 
+/* =========================
+   CTA
+========================= */
 .cta{
   border-radius: calc(var(--radius) + 6px);
   padding:22px;
@@ -181,6 +207,9 @@ h2{ margin:0 0 10px; font-size: clamp(22px, 2.6vw, 34px); }
   display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
 }
 
+/* =========================
+   FOOTER
+========================= */
 footer{
   padding:28px 0;
   border-top: 1px solid var(--line);
@@ -192,6 +221,9 @@ footer{
 }
 .footer-links{ display:flex; gap:14px; flex-wrap:wrap; }
 
+/* =========================
+   PAGE TITLE / FORMS
+========================= */
 .page-title{
   padding:46px 0 18px;
   border-bottom: 1px solid var(--line);
@@ -199,9 +231,7 @@ footer{
     radial-gradient(900px 260px at 30% 0%, rgba(212,175,55,.14), transparent 60%);
 }
 
-.form{
-  display:grid; gap:12px;
-}
+.form{ display:grid; gap:12px; }
 input, textarea{
   width:100%;
   padding:12px 14px;
@@ -216,7 +246,9 @@ input:focus, textarea:focus{
   border-color: rgba(212,175,55,.45);
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE NAV
+========================= */
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; }
   .grid-3{ grid-template-columns: 1fr; }
@@ -236,4 +268,140 @@ input:focus, textarea:focus{
     border-radius: 12px;
   }
   .mobile-menu a:hover{ background: rgba(255,255,255,.06); color: var(--text); }
+}
+
+/* =====================================================
+   PREMIUM ADD-ON (SOBRE COM FOTO + VALORES + ASSINATURA)
+   Mantém o INDEX funcionando
+===================================================== */
+
+/* animação suave */
+.reveal{
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp .7s ease forwards;
+}
+.reveal.d2{ animation-delay: .08s; }
+.reveal.d3{ animation-delay: .16s; }
+.reveal.d4{ animation-delay: .24s; }
+
+@keyframes fadeUp{
+  to{ opacity:1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; animation:none; }
+}
+
+/* layout bloco do sobre */
+.aboutHero{
+  display:grid;
+  grid-template-columns: 420px 1fr;
+  gap: 38px;
+  align-items: center;
+}
+@media (max-width: 900px){
+  .aboutHero{ grid-template-columns: 1fr; }
+}
+
+/* moldura premium da foto (ideal para sua foto escura) */
+.photoFrame{
+  position:relative;
+  border-radius:22px;
+  padding:6px;
+  background:
+    linear-gradient(135deg,
+      rgba(212,175,55,.65),
+      rgba(212,175,55,.18),
+      rgba(255,255,255,.08)
+    );
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.55),
+    0 0 0 1px rgba(212,175,55,.25);
+  overflow:hidden;
+}
+.photoFrame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  background:
+    radial-gradient(600px 200px at 20% 0%, rgba(212,175,55,.25), transparent 60%);
+  pointer-events:none;
+}
+.photoFrame img{
+  width:100%;
+  display:block;
+  aspect-ratio:3/4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 18px;
+  filter: contrast(1.05) brightness(1.02);
+}
+
+.aboutMeta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin: 12px 0 16px;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: .2px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+}
+.pill.gold{
+  border-color: rgba(212,175,55,.40);
+  background: rgba(212,175,55,.12);
+}
+
+.signature{
+  margin-top: 14px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.sigName{
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: .2px;
+  color: rgba(212,175,55,.95);
+}
+.sigRole{
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.valuesGrid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px){
+  .valuesGrid{ grid-template-columns: 1fr; }
+}
+.valueCard{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.valueCard h4{
+  margin:0 0 8px;
+  font-size: 15px;
+}
+.valueCard p{
+  margin:0;
+  color: var(--muted);
+  font-size: 14px;
 }
